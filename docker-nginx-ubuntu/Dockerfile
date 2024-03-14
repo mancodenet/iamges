@@ -16,7 +16,8 @@ COPY ./nginx/nginx-1.25.4.tar.gz ${NGINX_PACKAGE_PATH}/nginx-1.25.4.tar.gz
 
 COPY ./nginx/docs/index.html ${NGINX_PATH}/www/index.html
 
-RUN useradd -M -s /sbin/nologin nginx \
+RUN apt update && apt install -y gcc g++ make libssl-dev libpcre3 libpcre3-dev zlib1g-dev \
+  && useradd -M -s /sbin/nologin nginx \
   && cd ${NGINX_PACKAGE_PATH} && tar -zxf nginx-1.25.4.tar.gz && cd nginx-1.25.4 \ 
   && ./configure \
   --prefix=/usr/local/nginx \
